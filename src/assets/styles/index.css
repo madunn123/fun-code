@@ -1,0 +1,83 @@
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+    outline: none;
+}
+
+:root {
+    /* font-synthesis: none; */
+    /* text-rendering: optimizeLegibility; */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-text-size-adjust: 100%;
+}
+
+html {
+    background-color: #FFF3DA !important;
+    font-family: 'IBM Plex Sans', sans-serif !important;
+}
+
+body {
+    scroll-behavior: smooth;
+}
+
+body::-webkit-scrollbar {
+    width: 1em;
+    width: 10px;
+}
+
+body::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+}
+
+body::-webkit-scrollbar-thumb {
+    background-color: #DFCCFB;
+}
+
+.modal-border {
+    border: 5px solid var(--secondary-colors, #DFCCFB);
+    background: var(--main-colors, #FFF3DA);
+    box-shadow: 6px 6px 0px 0px #BEADFA;
+}
+
+.title-create {
+    color: var(--fourty-colors, #BEADFA);
+    text-shadow: 3px 3px 0px rgba(0, 0, 0, 0.15);
+    font-family: IBM Plex Sans;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    text-transform: uppercase;
+}
+
+.border-login {
+    border-radius: 0px;
+    border: 5px solid var(--secondary-colors, #DFCCFB);
+    box-shadow: 10px 10px 0px 0px #D0BFFF, 0px 0px 0px 0px rgba(0, 0, 0, 0.25), 20px 20px 0px 0px #BEADFA, 0px 0px 0px 0px rgba(0, 0, 0, 0.25);
+    backdrop-filter: blur(2px);
+}
+
+.close-border {
+    border: 2.5px solid var(--thirdy-colors, #D0BFFF);
+    box-shadow: -3px -3px 0px 0px rgba(0, 0, 0, 0.15);
+}
+
+.navbar {
+    background: var(--gradient-colors, #6A6A6A);
+    box-shadow: 5px 5px 0px 0px rgba(0, 0, 0, 0.15);
+}
+
+.category-border {
+    border: 2px solid var(--fourty-colors, #BEADFA);
+    box-shadow: 4px 4px 0px 0px rgba(0, 0, 0, 0.15);
+}
+
+.border-input {
+    border: 2px solid var(--fourty-colors, #BEADFA);
+    box-shadow: 4px 4px 0px 0px rgba(0, 0, 0, 0.15);
+}

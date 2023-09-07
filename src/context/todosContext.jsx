@@ -1,0 +1,66 @@
+import {
+  createContext, useContext, useMemo, useReducer,
+} from 'react';
+
+const todosContext = createContext();
+
+export function useTodosContext() {
+  return useContext(todosContext);
+}
+
+const initialState = {
+  formData: {
+    title: '',
+    type: '',
+    status: '',
+    description: '',
+  },
+  todos: [],
+};
+
+function reducer(state, action) {
+  switch (action.type) {
+    case 'UPDATE_FORM_DATA': {
+      return {
+        ...state,
+        formData: {
+          ...state.formData,
+          ...action.payload,
+        },
+      };
+    }
+    case 'ADD_TODO': {
+      return {
+        ...state,
+        todos: [...state.todos, {
+          id: state?.todos?.length,
+          ...state.formData,
+        }],
+      };
+    }
+    case 'DELETE_TODO': {
+      const removeTodo = state?.todos?.filter((todo) => todo?.id !== action.id);
+      return {
+        ...state,
+        todos: removeTodo,
+      };
+    }
+    default: {
+      throw Error(`unknown ${action.type}`);
+    }
+  }
+}
+
+export default function TodosProvider({ children }) {
+  const [state, dispatch] = useReducer(reducer, initialState);
+
+  const contextValue = useMemo(() => ({
+    state, dispatch,
+  }), [state]);
+
+  return (
+    <todosContext.Provider value={contextValue}>
+      {children}
+    </todosContext.Provider>
+  );
+}
