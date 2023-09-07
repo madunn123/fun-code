@@ -3,7 +3,6 @@ import { Route, Routes, useLocation } from 'react-router-dom';
 import RouterSuspense from '@/components/router/Router';
 import { NoAuth, RequireAuth } from '@/hooks/RouterValidation';
 import Nav from '@/components/common/Nav';
-import TestTabs from '@/pages/TestTabs';
 
 const Login = lazy(() => import('@/pages/Login'));
 const Home = lazy(() => import('@/pages/Home'));
@@ -42,14 +41,6 @@ export default function Routers() {
             element={(
               <RouterSuspense>
                 <Home />
-              </RouterSuspense>
-        )}
-          />
-          <Route
-            path="/test-tabs"
-            element={(
-              <RouterSuspense>
-                <TestTabs />
               </RouterSuspense>
         )}
           />

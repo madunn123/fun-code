@@ -22,7 +22,6 @@ module.exports = {
     'react/jsx-props-no-spreading': 'off',
     'linebreak-style': 'off',
     'react/prop-types': 'off',
-    'max-len': 'off',
     'import/no-extraneous-dependencies': ['error',
       {
         devDependencies: true,

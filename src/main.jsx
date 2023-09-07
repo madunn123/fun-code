@@ -5,15 +5,14 @@ import { BrowserRouter } from 'react-router-dom';
 import Routers from './routes/Index';
 import 'aos/dist/aos.css';
 import TodosProvider from './context/todosContext';
-import ThemeProvider from './context/themesContext';
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <BrowserRouter>
       <TodosProvider>
-        <ThemeProvider>
-          <Routers />
-        </ThemeProvider>
+        <Routers />
       </TodosProvider>
     </BrowserRouter>
   </React.StrictMode>,

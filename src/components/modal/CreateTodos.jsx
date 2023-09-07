@@ -47,7 +47,7 @@ export default function CreateTodos() {
               leaveFrom="opacity-100 scale-100"
               leaveTo="opacity-0 scale-95"
             >
-              <Dialog.Panel className="relative flex flex-col w-full max-w-2xl gap-6 px-10 overflow-hidden align-middle transition-all transform py-14 modal-border bg-main-colors">
+              <Dialog.Panel className="relative flex flex-col w-full max-w-2xl gap-6 px-10 overflow-hidden align-middle transition-all transform py-14 modal-border dark:bg-[#131917] bg-main-colors">
                 <Dialog.Title
                   as="h1"
                   className="text-left title-create"

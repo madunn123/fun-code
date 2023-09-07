@@ -23,14 +23,13 @@ export default function Card({ filterdata, tab }) {
             </div>
 
             <div className="flex flex-col gap-2.5">
-              <h1 className="m-0 text-sm font-medium uppercase text-[#6A6A6A]">{todo?.title}</h1>
-              <p className="m-0 text-xs font-normal text-[#838383]">
+              <h1 className="m-0 text-sm font-medium uppercase text-[#6A6A6A] dark:text-fourty-colors">{todo?.title}</h1>
+              <p className="m-0 text-xs font-normal text-[#838383] dark:text-secondary-colors">
                 {todo?.description}
               </p>
             </div>
 
             <div className="flex flex-row items-center gap-2.5">
-              {/* <button type="button" className="w-full py-2 text-xs font-semibold uppercase border-input text-fourty-colors">finish</button> */}
               <button
                 type="button"
                 className="w-full py-2 text-xs font-semibold text-red-300 uppercase border-input"

@@ -12,7 +12,7 @@ export default function Category({ setSearchQuery, data, setTab }) {
         <h1 className="m-0 text-lg font-semibold uppercase text-fourty-colors">x.tDOs Category</h1>
 
         <div className="flex flex-row items-center justify-between">
-          <div className="flex flex-row items-center gap-4">
+          <div className="flex flex-row items-center max-w-xl gap-4 overflow-x-auto">
             <button
               type="button"
               className="p-2.5 px-6 text-center uppercase text-sm text-fourty-colors category-border"

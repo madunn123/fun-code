@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 export default function Footer() {
   return (
-    <footer className="flex flex-col gap-4 py-8 text-sm uppercase navbar text-fourty-colors">
+    <footer className="flex flex-col gap-4 py-8 text-sm uppercase navbar dark:bg-fourty-colors dark:text-main-colors text-fourty-colors">
       <p className="max-w-3xl mx-auto text-center">
         website ini di buat hanya untuk kesenangan developer saja!, jika anda tidak menyukai
         website x.tdos.

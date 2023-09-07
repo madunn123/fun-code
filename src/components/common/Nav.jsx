@@ -19,7 +19,7 @@ export default function Nav() {
   });
 
   return (
-    <nav className={`navbar flex flex-row items-center justify-between p-5 px-12 ${stickyNav ? 'sticky top-2.5 z-50' : 'relative'}`}>
+    <nav className={`navbar dark:bg-fourty-colors flex flex-row items-center justify-between p-5 px-12 ${stickyNav ? 'sticky top-2.5 z-50' : 'relative'}`}>
       <div className="logo">
         <h1 className="m-0 text-2xl font-bold text-fourty-colors">
           X.
