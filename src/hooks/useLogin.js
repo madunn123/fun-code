@@ -9,12 +9,12 @@ const initialState = {
 };
 
 export default function useLogin() {
-  const user = JSON.parse(localStorage.getItem('user-register'));
+  const user = JSON.parse(localStorage.getItem('user-register')) || {};
   const navigate = useNavigate();
   const [visible, setVisible] = useState(false);
   const [state, dispatch] = useReducer(loginReducer, initialState);
 
-  function onSubmit(props, e) {
+  async function onSubmit(props, e) {
     e.preventDefault();
 
     const { username, password } = props;
@@ -22,19 +22,21 @@ export default function useLogin() {
 
     try {
       setTimeout(() => {
-        if (!username.value && !password.value) {
-          dispatch({ type: 'LOGIN_ERROR', payload: 'username & password tidak tersedia' });
-        } else if (username?.value && password?.value === user?.username && user?.password) {
-          const users = { username: username?.value, password: password?.value };
-          dispatch({ type: 'LOGIN_SUCCESS', payload: { username: username?.value, password: password?.value } });
+        if (!username.value || !password.value) {
+          throw new Error('Username dan password harus diisi.');
+        }
+
+        if (username.value === user.username && password.value === user.password) {
+          const users = { username: username.value, password: password.value };
+          dispatch({ type: 'LOGIN_SUCCESS', payload: { username: username.value, password: password.value } });
           localStorage.setItem('user', JSON.stringify(users));
           navigate('/home');
         } else {
-          dispatch({ type: 'LOGIN_ERROR', payload: 'username & password tidak tersedia' });
+          throw new Error('Username atau password salah.');
         }
       }, 2000);
     } catch (error) {
-      dispatch({ type: 'LOGIN_ERROR', payload: error });
+      dispatch({ type: 'LOGIN_ERROR', payload: error.message });
     }
   }
 

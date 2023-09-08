@@ -23,7 +23,9 @@ export default function useRegister() {
       setTimeout(() => {
         if (!password.value && !confirmPassword.value && !username.value) {
           dispatch({ type: 'REGISTER_ERROR', payload: 'username dan password tidak boleh kosong' });
-        } else if (password.value === confirmPassword.value) {
+        }
+
+        if (password.value === confirmPassword.value) {
           dispatch({ type: 'REGISTER_SUCCESS', payload: { username, password } });
           saveCredentials({ username: username.value, password: password.value });
         } else {
