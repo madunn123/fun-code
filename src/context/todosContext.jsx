@@ -9,33 +9,15 @@ export function useTodosContext() {
 }
 
 const initialState = {
-  formData: {
-    title: '',
-    type: '',
-    status: '',
-    description: '',
-  },
   todos: [],
 };
 
 function reducer(state, action) {
   switch (action.type) {
-    case 'UPDATE_FORM_DATA': {
-      return {
-        ...state,
-        formData: {
-          ...state.formData,
-          ...action.payload,
-        },
-      };
-    }
     case 'ADD_TODO': {
       return {
         ...state,
-        todos: [...state.todos, {
-          id: state?.todos?.length,
-          ...state.formData,
-        }],
+        todos: [...state.todos, action.payload],
       };
     }
     case 'DELETE_TODO': {
