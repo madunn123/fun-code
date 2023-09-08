@@ -1,3 +1,5 @@
+import { saveToLocalStorage } from '@/utils/helper';
+
 export default function registerReducer(state, action) {
   switch (action.type) {
     case 'REGISTER_REQUEST': {
@@ -7,6 +9,7 @@ export default function registerReducer(state, action) {
       };
     }
     case 'REGISTER_SUCCESS': {
+      saveToLocalStorage('user', action.payload);
       return {
         ...state,
         loading: false,

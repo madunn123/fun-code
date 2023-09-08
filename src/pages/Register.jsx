@@ -1,18 +1,17 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai';
-import useInputForm from '@/hooks/useInputForm';
 import useRegister from '@/hooks/useRegister';
 import Darkmode from '@/components/common/Darkmode';
 import NotifRegister from '@/components/notification/NotifRegister';
 
 export default function Register() {
-  const username = useInputForm('');
-  const password = useInputForm('');
-  const confirmPassword = useInputForm('');
+  // const username = useInputForm('');
+  // const password = useInputForm('');
+  // const confirmPassword = useInputForm('');
 
   const {
-    onSubmit, visible, setVisible, state, notification,
+    onSubmit, visible, setVisible, state, notification, register,
   } = useRegister();
 
   return (
@@ -27,26 +26,24 @@ export default function Register() {
 
             <form
               className="flex flex-col gap-6"
-              onSubmit={(e) => onSubmit({
-                username, password, confirmPassword,
-              }, e)}
+              onSubmit={onSubmit}
             >
               <div className="flex flex-col gap-6">
                 <input
                   type="text"
                   placeholder="email / username"
-                  {...username}
+                  {...register('username')}
                   className="border-[2px] text-sm placeholder:capitalize lowercase px-4 border-secondary-colors bg-inherit outline-none p-2.5 text-[#999999]"
                 />
 
                 <div className="relative">
                   <input
                     type={visible ? 'text' : 'password'}
-                    {...password}
+                    {...register('password')}
                     placeholder="password"
                     className=" w-full border-[2px] text-sm placeholder:capitalize lowercase px-4 border-secondary-colors bg-inherit outline-none p-2.5 text-[#999999]"
                   />
-                  <button type="button" onClick={() => setVisible(!visible)} className="absolute top-0 flex items-center h-full outline-none right-4">
+                  <button type="button" tabIndex={-1} onClick={() => setVisible(!visible)} className="absolute top-0 flex items-center h-full outline-none right-4">
                     {visible ? <AiOutlineEye className="text-xl text-fourty-colors xl:text-2xl" /> : <AiOutlineEyeInvisible className="text-xl text-fourty-colors xl:text-2xl" />}
                   </button>
                 </div>
@@ -55,10 +52,10 @@ export default function Register() {
                   <input
                     type={visible ? 'text' : 'password'}
                     placeholder="confirm password"
-                    {...confirmPassword}
+                    {...register('confirmPassword')}
                     className=" w-full border-[2px] text-sm placeholder:capitalize lowercase px-4 border-secondary-colors bg-inherit outline-none p-2.5 text-[#999999]"
                   />
-                  <button type="button" onClick={() => setVisible(!visible)} className="absolute outline-none top-3 xl:top-2.5 right-4">
+                  <button type="button" tabIndex={-1} onClick={() => setVisible(!visible)} className="absolute outline-none top-3 xl:top-2.5 right-4">
                     {visible ? <AiOutlineEye className="text-xl text-fourty-colors xl:text-2xl" /> : <AiOutlineEyeInvisible className="text-xl text-fourty-colors xl:text-2xl" />}
                   </button>
 

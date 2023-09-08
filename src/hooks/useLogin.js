@@ -1,48 +1,39 @@
-import { useReducer, useState } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import loginReducer from '../reducer/loginReducer';
-
-const initialState = {
-  user: null,
-  loading: false,
-  error: null,
-};
+import useForm from './useForm';
+import { awaiter } from '@/utils/helper';
+import { useAuthContext } from '@/context/authContext';
 
 export default function useLogin() {
-  const user = JSON.parse(localStorage.getItem('user-register')) || {};
   const navigate = useNavigate();
-  const [visible, setVisible] = useState(false);
-  const [state, dispatch] = useReducer(loginReducer, initialState);
+  const [state, dispatch] = useAuthContext();
+  const { users } = state;
 
-  async function onSubmit(props, e) {
+  const [visible, setVisible] = useState(false);
+  const { formState, register } = useForm({ username: '', password: '' });
+
+  async function onSubmit(e) {
     e.preventDefault();
 
-    const { username, password } = props;
-    dispatch({ type: 'LOGIN_REQUEST' });
+    const { username, password } = formState;
+    dispatch({ type: 'AUTH_REQUEST' });
+    await awaiter(2000);
 
     try {
-      setTimeout(() => {
-        if (!username.value || !password.value) {
-          throw new Error('Username dan password harus diisi.');
-        }
+      if (!username || !password) throw new Error('Username dan password harus diisi.');
 
-        if (username.value === user.username && password.value === user.password) {
-          const users = { username: username.value, password: password.value };
-          dispatch({ type: 'LOGIN_SUCCESS', payload: { username: username.value, password: password.value } });
-          localStorage.setItem('user', JSON.stringify(users));
-          navigate('/home');
-        } else {
-          throw new Error('Username atau password salah.');
-        }
-      }, 2000);
+      const user = users.find((item) => item.username === username);
+      if (username !== user?.username || password !== user?.password) throw new Error('Username atau password salah.');
+
+      dispatch({ type: 'AUTH_LOGIN', payload: { username, password } });
+      navigate('/home');
     } catch (error) {
-      dispatch({ type: 'LOGIN_ERROR', payload: error.message });
+      dispatch({ type: 'AUTH_ERROR', payload: error.message });
     }
   }
 
   function handleLogout() {
-    dispatch({ type: 'LOGOUT' });
-    localStorage.removeItem('user');
+    dispatch({ type: 'AUTH_LOGOUT' });
     navigate('/');
   }
 
@@ -52,5 +43,6 @@ export default function useLogin() {
     visible,
     setVisible,
     handleLogout,
+    register,
   };
 }
