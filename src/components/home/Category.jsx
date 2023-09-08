@@ -1,4 +1,3 @@
-/* eslint-disable react/no-array-index-key */
 import React, { useState } from 'react';
 import { AiOutlineSearch } from 'react-icons/ai';
 import CreateTodos from '../modal/CreateTodos';

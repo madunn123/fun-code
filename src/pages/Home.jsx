@@ -1,5 +1,4 @@
-/* eslint-disable react/no-array-index-key */
-import React, { useState } from 'react';
+import React, { useDeferredValue, useMemo, useState } from 'react';
 import Footer from '@/components/common/Footer';
 import Darkmode from '@/components/common/Darkmode';
 import Card from '@/components/home/Card';
@@ -8,14 +7,19 @@ import { useTodosContext } from '@/context/todosContext';
 
 export default function Home() {
   const { state } = useTodosContext();
-  const [searchQuery, setSearchQuery] = useState('');
   const [tab, setTab] = useState('all');
+  const [searchQuery, setSearchQuery] = useState('');
+  const deferredQuery = useDeferredValue(searchQuery);
 
-  const filterData = searchQuery
-    ? state?.todos?.filter(
-      (query) => query?.title.toLowerCase().includes(searchQuery.toLowerCase()),
-    )
-    : state?.todos;
+  // Gunakan useMemo untuk menghitung filterData
+  const filterData = useMemo(() => {
+    if (!deferredQuery) {
+      return state?.todos;
+    }
+    return state?.todos?.filter(
+      (query) => query?.title.toLowerCase().includes(deferredQuery.toLowerCase()),
+    );
+  }, [state?.todos, deferredQuery]);
 
   return (
     <>

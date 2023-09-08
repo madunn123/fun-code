@@ -10,8 +10,8 @@ const initialState = {
 };
 
 export default function useRegister() {
-  const [state, dispatch] = useReducer(registerReducer, initialState);
   const [visible, setVisible] = useState(false);
+  const [state, dispatch] = useReducer(registerReducer, initialState);
 
   async function onSubmit(props, e) {
     e.preventDefault();

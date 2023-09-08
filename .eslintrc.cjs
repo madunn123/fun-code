@@ -20,7 +20,9 @@ module.exports = {
   rules: {
     'react/react-in-jsx-scope': 'off',
     'react/jsx-props-no-spreading': 'off',
+    'react/no-array-index-key': 'off',
     'linebreak-style': 'off',
+    'max-len': 'off',
     'react/prop-types': 'off',
     'import/no-extraneous-dependencies': ['error',
       {
