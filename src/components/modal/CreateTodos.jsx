@@ -69,20 +69,31 @@ export default function CreateTodos() {
                     placeholder="Title x.tdos"
                     onChange={handleInputChange}
                   />
-                  <input
-                    type="text"
+
+                  <select
                     name="type"
-                    className="p-2 px-4 text-sm font-medium placeholder:uppercase border-input bg-inherit text-fourty-colors placeholder:text-fourty-colors"
-                    placeholder="type"
+                    id="type"
+                    className="p-2 px-2 text-sm font-medium uppercase placeholder:uppercase border-input bg-inherit text-fourty-colors placeholder:text-fourty-colors"
                     onChange={handleInputChange}
-                  />
-                  <input
-                    type="text"
+                  >
+                    <option value="" selected hidden>choose a type</option>
+                    <option value="daily" className="bg-main-colors">daily progress</option>
+                    <option value="weekly" className="bg-main-colors">weekly progress</option>
+                    <option value="monthly" className="bg-main-colors">monthly progress</option>
+                  </select>
+
+                  <select
                     name="status"
-                    className="p-2 px-4 text-sm font-medium placeholder:uppercase border-input bg-inherit text-fourty-colors placeholder:text-fourty-colors"
-                    placeholder="status"
+                    id="status"
+                    className="p-2 px-2 text-sm font-medium uppercase placeholder:uppercase border-input bg-inherit text-fourty-colors placeholder:text-fourty-colors"
                     onChange={handleInputChange}
-                  />
+                  >
+                    <option value="" selected hidden>choose a status</option>
+                    <option value="urgent" className="bg-main-colors">urgent</option>
+                    <option value="on-progress" className="bg-main-colors">on-progress</option>
+                    <option value="finished" className="bg-main-colors">finished</option>
+                  </select>
+
                   <textarea
                     rows="6"
                     name="description"

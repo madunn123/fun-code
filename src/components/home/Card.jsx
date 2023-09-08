@@ -18,8 +18,12 @@ export default function Card({ filterdata, tab }) {
         <AnimationFade key={i}>
           <div className="flex flex-col gap-10 px-4 py-6 border-input">
             <div className="flex flex-row items-center justify-between">
-              <span className="text-xs font-medium uppercase text-fourty-colors">{todo?.type}</span>
-              <span className="text-xs font-medium uppercase text-fourty-colors">{todo?.status}</span>
+              <span className="text-sm font-medium uppercase text-fourty-colors">
+                {todo?.type}
+                {' '}
+                - task
+              </span>
+              <span className={`text-sm font-medium uppercase ${todo?.status === 'urgent' ? 'text-red-400' : 'text-fourty-colors'}`}>{todo?.status}</span>
             </div>
 
             <div className="flex flex-col gap-2.5">
