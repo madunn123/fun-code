@@ -1,41 +1,36 @@
-import { useReducer, useState } from 'react';
-import registerReducer from '@/reducer/registerReducer';
-import saveCredentials from '@/utils/saveCredentials';
-
-const initialState = {
-  user: null,
-  loading: false,
-  error: null,
-  status: '',
-};
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import useForm from './useForm';
+import { awaiter } from '@/utils/helper';
+import { useAuthContext } from '@/context/authContext';
 
 export default function useRegister() {
-  const [visible, setVisible] = useState(false);
-  const [state, dispatch] = useReducer(registerReducer, initialState);
+  const navigate = useNavigate();
+  const [state, dispatch] = useAuthContext();
 
-  async function onSubmit(props, e) {
+  const [visible, setVisible] = useState(false);
+  const { formState, register } = useForm({ username: '', password: '', confirmPassword: '' });
+
+  async function onSubmit(e) {
     e.preventDefault();
 
-    const { username, password, confirmPassword } = props;
-    dispatch({ type: 'REGISTER_REQUEST' });
+    const { username, password, confirmPassword } = formState;
+    dispatch({ type: 'AUTH_REQUEST' });
+    await awaiter(2000);
 
     try {
-      setTimeout(() => {
-        if (!password.value && !confirmPassword.value && !username.value) {
-          dispatch({ type: 'REGISTER_ERROR', payload: 'username dan password tidak boleh kosong' });
-        }
+      if (!password && !confirmPassword && !username) return dispatch({ type: 'AUTH_ERROR', payload: 'username dan password tidak boleh kosong' });
+      if (password !== confirmPassword) return dispatch({ type: 'AUTH_ERROR', payload: 'Password dan konfirmasi password tidak sama' });
 
-        if (password.value === confirmPassword.value) {
-          dispatch({ type: 'REGISTER_SUCCESS', payload: { username, password } });
-          saveCredentials({ username: username.value, password: password.value });
-        } else {
-          dispatch({ type: 'REGISTER_ERROR', payload: 'Password dan konfirmasi password tidak sama' });
-        }
-      }, 2000);
+      dispatch({ type: 'AUTH_REGISTER', payload: { username, password } });
+      navigate('/home');
+
+      return formState;
     } catch (error) {
-      dispatch({ type: 'REGISTER_ERROR', payload: error });
-      throw Error(error);
+      dispatch({ type: 'AUTH_ERROR', payload: error });
     }
+
+    return null;
   }
 
   return {
@@ -43,5 +38,6 @@ export default function useRegister() {
     state,
     visible,
     setVisible,
+    register,
   };
 }

@@ -1,18 +1,29 @@
-import { createContext, useContext } from 'react';
-import useLogin from '@/hooks/useLogin';
+import {
+  createContext,
+  useContext,
+  useMemo,
+  useReducer,
+} from 'react';
+import authReducer from '@/reducer/authReducer';
+import { getFromLocalStorage } from '@/utils/helper';
 
-const authContext = createContext();
+const initialState = {
+  users: getFromLocalStorage('users') ?? [],
+  user: getFromLocalStorage('user') ?? null,
+  loading: false,
+  error: null,
+};
 
-export function useUser() {
-  return useContext(authContext);
-}
+const AuthContext = createContext();
+export const useAuthContext = () => useContext(AuthContext);
 
 export default function AuthProvider({ children }) {
-  const { state } = useLogin();
+  const [state, dispatch] = useReducer(authReducer, initialState);
+  const providerState = useMemo(() => [state, dispatch], [state, dispatch]);
 
   return (
-    <authContext.Provider value={state}>
+    <AuthContext.Provider value={providerState}>
       {children}
-    </authContext.Provider>
+    </AuthContext.Provider>
   );
 }

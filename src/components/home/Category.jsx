@@ -1,9 +1,11 @@
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import { AiOutlineSearch } from 'react-icons/ai';
 import CreateTodos from '../modal/CreateTodos';
 
 export default function Category({ setSearchQuery, data, setTab }) {
   const [open, setOpen] = useState(false);
+
+  const uniqueCategories = useMemo(() => [...new Set(data.map((item) => item.type))], [data]);
 
   return (
     <>
@@ -19,14 +21,14 @@ export default function Category({ setSearchQuery, data, setTab }) {
             >
               All
             </button>
-            {data?.map((typeTodos) => (
+            {uniqueCategories?.map((typeTodos) => (
               <button
-                key={typeTodos?.id}
+                key={typeTodos}
                 type="button"
                 className="p-2.5 px-6 text-center uppercase text-sm text-fourty-colors category-border"
-                onClick={() => setTab(typeTodos?.type)}
+                onClick={() => setTab(typeTodos)}
               >
-                {typeTodos?.type}
+                {typeTodos}
               </button>
             ))}
           </div>

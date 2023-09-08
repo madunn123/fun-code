@@ -2,15 +2,12 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai';
 import useLogin from '@/hooks/useLogin';
-import useInputForm from '@/hooks/useInputForm';
 import Darkmode from '@/components/common/Darkmode';
 
 export default function Login() {
   const {
-    onSubmit, visible, setVisible, state,
+    onSubmit, visible, setVisible, state, register,
   } = useLogin();
-  const username = useInputForm('');
-  const password = useInputForm('');
 
   return (
     <>
@@ -24,13 +21,13 @@ export default function Login() {
 
             <form
               className="flex flex-col gap-6"
-              onSubmit={(e) => onSubmit({ username, password }, e)}
+              onSubmit={onSubmit}
             >
               <div className="flex flex-col gap-6">
                 <input
                   type="text"
                   placeholder="email / username"
-                  {...username}
+                  {...register('username')}
                   className="border-[2px] text-sm placeholder:capitalize lowercase px-4 border-secondary-colors bg-inherit outline-none p-2.5 text-[#999999]"
                 />
 
@@ -38,7 +35,7 @@ export default function Login() {
                   <input
                     type={visible ? 'text' : 'password'}
                     placeholder="password"
-                    {...password}
+                    {...register('password')}
                     className=" w-full border-[2px] text-sm placeholder:capitalize lowercase px-4 border-secondary-colors bg-inherit outline-none p-2.5 text-[#999999]"
                   />
                   <button

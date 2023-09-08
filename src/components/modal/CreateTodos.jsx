@@ -2,23 +2,22 @@ import { Dialog, Transition } from '@headlessui/react';
 import { Fragment, useState } from 'react';
 import { IoCloseSharp } from 'react-icons/io5';
 import { useTodosContext } from '@/context/todosContext';
+import useForm from '@/hooks/useForm';
 
 export default function CreateTodos() {
   const [isOpen, setIsOpen] = useState(true);
   const { dispatch } = useTodosContext();
-
-  const handleInputChange = (e) => {
-    const { value, name } = e.target;
-    dispatch({
-      type: 'UPDATE_FORM_DATA',
-      payload: { [name]: value },
-    });
-  };
+  const { formState, register } = useForm({
+    title: '',
+    type: '',
+    status: '',
+    description: '',
+  });
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    dispatch({ type: 'ADD_TODO' });
+    dispatch({ type: 'ADD_TODO', payload: formState });
   };
 
   return (
@@ -67,14 +66,14 @@ export default function CreateTodos() {
                     name="title"
                     className="p-2 px-4 text-sm font-medium placeholder:uppercase border-input bg-inherit text-fourty-colors placeholder:text-fourty-colors"
                     placeholder="Title x.tdos"
-                    onChange={handleInputChange}
+                    {...register('title')}
                   />
 
                   <select
                     name="type"
                     id="type"
                     className="p-2 px-2 text-sm font-medium uppercase placeholder:uppercase border-input bg-inherit text-fourty-colors placeholder:text-fourty-colors"
-                    onChange={handleInputChange}
+                    {...register('type')}
                   >
                     <option value="" selected hidden>choose a type</option>
                     <option value="daily" className="bg-main-colors">daily progress</option>
@@ -86,7 +85,7 @@ export default function CreateTodos() {
                     name="status"
                     id="status"
                     className="p-2 px-2 text-sm font-medium uppercase placeholder:uppercase border-input bg-inherit text-fourty-colors placeholder:text-fourty-colors"
-                    onChange={handleInputChange}
+                    {...register('status')}
                   >
                     <option value="" selected hidden>choose a status</option>
                     <option value="urgent" className="bg-main-colors">urgent</option>
@@ -99,7 +98,7 @@ export default function CreateTodos() {
                     name="description"
                     className="p-2 px-4 text-sm font-medium placeholder:uppercase border-input bg-inherit text-fourty-colors placeholder:text-fourty-colors"
                     placeholder="description"
-                    onChange={handleInputChange}
+                    {...register('description')}
                   />
 
                   <button type="submit" className="p-3.5 text-sm font-bold uppercase border-input text-fourty-colors">create x.tdos</button>
