@@ -11,42 +11,60 @@ const Register = lazy(() => import('@/pages/Register'));
 
 export default function Routers() {
   const location = useLocation();
+  const routes = [
+    {
+      path: '/',
+      element: <Login />,
+      RequireAuth: false,
+    },
+    {
+      path: '/register',
+      element: <Register />,
+      RequireAuth: false,
+    },
+    {
+      path: '/home',
+      element: <Home />,
+      RequireAuth: true,
+    },
+  ];
 
   return (
     <AuthProvider>
       <div className="grid grid-cols-1 gap-10 py-[1%] xl:w-[1500px] mx-auto">
-        {location.pathname !== '/' && location.pathname !== '/register' ? <Nav /> : ''}
+        {location.pathname !== '/' && location.pathname !== '/register' && <Nav />}
 
         <Routes>
-          <Route element={<NoAuth />}>
-            <Route
-              path="/"
-              element={(
-                <RouterSuspense>
-                  <Login />
-                </RouterSuspense>
-          )}
-            />
-            <Route
-              path="/register"
-              element={(
-                <RouterSuspense>
-                  <Register />
-                </RouterSuspense>
-            )}
-            />
-          </Route>
-
-          <Route element={<RequireAuth />}>
-            <Route
-              path="/home"
-              element={(
-                <RouterSuspense>
-                  <Home />
-                </RouterSuspense>
-          )}
-            />
-          </Route>
+          {
+            routes?.map((route, i) => {
+              if (route.RequireAuth) {
+                return (
+                  <Route element={<RequireAuth />} key={i}>
+                    <Route
+                      path={route.path}
+                      element={(
+                        <RouterSuspense>
+                          {route.element}
+                        </RouterSuspense>
+                    )}
+                    />
+                  </Route>
+                );
+              }
+              return (
+                <Route element={<NoAuth />} key={i}>
+                  <Route
+                    path={route.path}
+                    element={(
+                      <RouterSuspense>
+                        {route.element}
+                      </RouterSuspense>
+                  )}
+                  />
+                </Route>
+              );
+            })
+          }
         </Routes>
       </div>
     </AuthProvider>

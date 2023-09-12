@@ -7,6 +7,7 @@ import useForm from '@/hooks/useForm';
 export default function CreateTodos() {
   const [isOpen, setIsOpen] = useState(true);
   const { dispatch } = useTodosContext();
+
   const { formState, register } = useForm({
     title: '',
     type: '',

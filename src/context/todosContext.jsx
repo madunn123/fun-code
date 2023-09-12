@@ -21,7 +21,7 @@ function reducer(state, action) {
       };
     }
     case 'DELETE_TODO': {
-      const removeTodo = state?.todos?.filter((todo) => todo?.id !== action.id);
+      const removeTodo = state?.todos?.filter((todo) => todo?.title !== action.title);
       return {
         ...state,
         todos: removeTodo,

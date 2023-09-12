@@ -36,7 +36,7 @@ export default function Card({ filterdata, tab }) {
               <button
                 type="button"
                 className="w-full py-2 text-xs font-semibold text-red-300 uppercase border-input"
-                onClick={() => dispatch({ type: 'DELETE_TODO', id: todo?.id })}
+                onClick={() => dispatch({ type: 'DELETE_TODO', title: todo?.title })}
               >
                 remove
               </button>
